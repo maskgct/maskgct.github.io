@@ -405,7 +405,7 @@
 
 <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
 	<h2 id="editing-samples" style="text-align: center;">Speech Editing</h2>
-	<p></p>
+	<p>Based on the mask-and-predict mechanism, our text-to-semantic model supports zero-shot speech content editing with the assistance of a text-speech aligner. By using the aligner, we can identify the editing boundary of the original semantic token sequence, mask the portion that needs to be edited, and then predict the masked semantic tokens using the edited text and the unmasked semantic tokens.</p>
 		<div class="table-responsive pt-3">
 			<table class="table table-hover pt-2">
 				<thead>
@@ -418,16 +418,16 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;">针蓝线蓝领子蓝，蓝针蓝线蓝领蓝。蓝针蓝线连蓝领，针蓝线蓝领子蓝。</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/vc_samples/vc_01.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;">针蓝线蓝领子蓝，蓝针蓝线蓝领蓝。蓝针蓝线连蓝领，针蓝线蓝领子蓝。</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/vc_samples/vc_02.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;">If the red of the second bow falls upon the green of the first, <b>the outcome is an abnormally wide yellow band in the bow</b>, since red and green light when mixed form yellow.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/edit_samples/edited_p227_023.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;">If the red of the second bow falls upon the green of the first, <b>the result is to give a bow with an abnormally wide yellow band</b>, since red and green light when mixed form yellow.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/edit_samples/p227_023.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 					</tr>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;">针蓝线蓝领子蓝，蓝针蓝线蓝领蓝。蓝针蓝线连蓝领，针蓝线蓝领子蓝。</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/vc_samples/vc_11.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;">针蓝线蓝领子蓝，蓝针蓝线蓝领蓝。蓝针蓝线连蓝领，针蓝线蓝领子蓝。</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/vc_samples/vc_12.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;">The difference in the rainbow depends considerably upon the size of the drops, and the <b>colored band becomes wider as the size of the drops grows.</b></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/edit_samples/edited_p250_021.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;">The difference in the rainbow depends considerably upon the size of the drops, and the <b>width of the colored band increases as the size of the drops increases.</b></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/edit_samples/p250_021.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 					</tr>
 				</tbody>
 			</table>
