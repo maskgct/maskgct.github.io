@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="css/custom.css">
 	<link rel="stylesheet" href="css/normalize.css">
 
-	<title>Seed-TTS</title>
+	<title>MaskGCT</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
 </head>
@@ -30,14 +30,14 @@
       <h3>Zero-Shot Text-to-Speech with Masked Generative Codec Transformer</h3>
       	<!-- [<a href="https://arxiv.org/abs/2406.02430">Paper</a>] -->
 
-        <p class="fst-italic mb-0">
+        <!-- <p class="fst-italic mb-0">
         	<br>
-          Seed Team
+			maskGCT Team
       <p></p>
         </p>
-        <p><b>ByteDance</b></p>
+        <p><b>CUHK(SZ)</b></p> -->
 	</div>
-	<p><b>Abstract.</b> We introduce Seed-TTS, a family of large-scale autoregressive text-to-speech (TTS) models capable of generating speech that is virtually indistinguishable from human speech. Seed-TTS serves as a foundation model for speech generation and excels in speech in-context learning, achieving performance in speaker similarity and naturalness that matches ground truth human speech in both objective and subjective evaluations. With fine-tuning, we achieve even higher subjective scores across these metrics. Seed-TTS offers superior controllability over various speech attributes such as emotion and is capable of generating highly expressive and diverse speech for speakers in the wild. Furthermore, we propose a self-distillation method for speech factorization, as well as a reinforcement learning approach to enhance model robustness, speaker similarity and controllability. We additionally present a non-autoregressive (NAR) variant of the Seed-TTS model, named Seed-TTS<sub>DiT</sub>, which utilizes a fully diffusion-based architecture. Unlike previous NAR-based TTS systems, Seed-TTS<sub>DiT</sub> does not depend on pre-estimated phoneme durations and performs speech generation through end-to-end processing. We demonstrate that this variant achieves comparable performance to the language model-based variant in both objective and subjective evaluations and showcase its effectiveness in speech editing.
+	<p><b>Abstract</b> Nowadays, large-scale text-to-speech (TTS) systems are primarily divided into two types: autoregressive and non-autoregressive. The autoregressive systems have certain deficiencies in robustness and cannot control speech duration. In contrast, non-autoregressive systems require explicit prediction of phone-level duration, which may compromise their naturalness. We introduce the Masked Generative Codec Transformer (MaskGCT), a fully non-autoregressive model for TTS that does not require precise alignment information between text and speech. MaskGCT is a two-stage model: in the first stage, the model uses text to predict semantic tokens extracted from a speech self-supervised learning (SSL) model, and in the second stage, the model predicts acoustic tokens conditioned on these semantic tokens. MaskGCT follows the <i>mask-and-predict</i> learning paradigm. During training, MaskGCT learns to predict masked semantic or acoustic tokens based on given conditions and prompts. During inference, the model generates tokens of a specified length in a parallel manner. We scale MaskGCT to a large-scale multilingual dataset with 100K hours of in-the-wild speech. Our experiments demonstrate that MaskGCT achieves superior or competitive performance compared to state-of-the-art zero-shot TTS systems regarding quality, similarity, and intelligibility while offering higher generation efficiency than diffusion-based or autoregressive TTS models.
 	</p>
 
 	<p>
@@ -45,13 +45,17 @@
       <ul>
         <li><a href="#model-overview">System Overview</a></li>
         <li><a href="#zero-shot-icl-samples">Zero-shot In-context Learning</a></li>
-        <li><a href="#speaker-finetune-samples">Speaker Fine-tune</a></li>
-        <li><a href="#speech-factorization-samples">Speech Factorization</a></li>
-        <li><a href="#rl-samples">Preference Biasing Through Reinforcement Learning</a></li>
-        <li><a href="#full-diffusion-samples">Fully Diffusion-based Speech Generation</a></li>
-        <li><a href="#applications-samples">Applications</a></li>
+        <li><a href="#emotion-samples">Emotion Samples</a></li>
+        <li><a href="#celebrities-samples">Celebrities</a></li>
+        <li><a href="#anime-samples">Anime Characters</a></li>
+        <li><a href="#robustness-samples">Robustness</a></li>
+        <li><a href="#speed-samples">Speech Rate Controllability</a></li>
+		<li><a href="#editing-samples">Speech Editing</a></li>
+		<li><a href="#video-translation-samples">Cross-language Video Translation</a></li>
       </ul>
 	</p>
+
+	<p><b>This page is for research demonstration purposes only.</b></p>
 
 	
 </div>
@@ -61,22 +65,22 @@
 	<h2 id="model-overview" style="text-align: center;">System Overview</h2>
 	<body>
 	<p style="text-align: center;">
-		<img src="pics/overview.jpeg" height="400" width="800">
+		<img src="pics/maskgct_overview.png" height="500" width="1000">
 	</p>
 	</body>
 		<p style="text-align: center;" >
-			<b>Figure 1.</b> An overview of the Seed-TTS inference pipeline. (1) The speech tokenizer learns tokens from reference speech. (2) The autoregressive language model generates the speech tokens based on the condition text and speech. (3) The diffusion transformer model generates continuous speech representations given generated speech tokens in a coarse-to-fine manner. (4) The acoustic vocoder yields higher-quality speech from the diffusion output.
+			<b>Figure 1.</b> An overview of our MaskGCT system. MaskGCT consists of four main parts: (1) a speech semantic representation codec converts speech to semantic tokens; (2) a text-to-semantic model predicts semantic tokens with text and prompt semantic tokens; (3) a semantic-to-acoustic model predicts acoustic tokens conditioned on semantic tokens; (4) a speech acoustic codec reconstructs speech waveform from acoustic tokens.
 		</p>
 </div>
 
 
 <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
 	<h2 id="zero-shot-icl-samples" style="text-align: center;">Zero-shot In-context Learning</h2>
+	<p>The first four prompt audios are from the demo page of Seed-TTS.</p>
 		<div class="table-responsive pt-3">
 			<table class="table table-hover pt-2">
 				<thead>
 				<tr>
-				<th style="vertical-align : middle;text-align: center">Language </th>
 				<th style="vertical-align : middle;text-align: center">Prompt </th>
 				<th style="vertical-align : middle;text-align: center">Same Language Generation</th>
 				<th style="vertical-align : middle;text-align: center">Cross-linugal Generation</th>
@@ -84,45 +88,142 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;" rowspan="3">EN</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN/prompt/4245145269330795065.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN/generated/-7098819224143199853.wav" autoplay/>Your browser does not support the audio element.</audio><br>I don't really care what you call me. I've been a silent spectator, watching species evolve, empires rise and fall. But always remember, I am mighty and enduring. Respect me and I'll nurture you; ignore me and you shall face the consequences.</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN2ZH/accent/-7059551132412457673.wav" autoplay/>Your browser does not support the audio element.</audio><br>顿时，气氛变得沉郁起来。乍看之下，一切的困扰仿佛都围绕在我身边。我皱着眉头，感受着那份压力，但我知道我不能放弃，不能认输。于是，我深吸一口气，心底的声音告诉我：“无论如何，都要冷静下来，重新开始。”</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_10.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_11.wav" autoplay/>Your browser does not support the audio element.</audio><br>I don't really care what you call me. I've been a silent spectator, watching species evolve, empires rise and fall. But always remember, I am mighty and enduring. Respect me and I'll nurture you; ignore me and you shall face the consequences.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_12.wav" autoplay/>Your browser does not support the audio element.</audio><br>顿时，气氛变得沉郁起来。乍看之下，一切的困扰仿佛都围绕在我身边。我皱着眉头，感受着那份压力，但我知道我不能放弃，不能认输。于是，我深吸一口气，心底的声音告诉我：“无论如何，都要冷静下来，重新开始。”</td>
 					</tr>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN/prompt/2486365921931244890.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN/generated/-4022654511881686103.wav" autoplay/>Your browser does not support the audio element.</audio><br>Dealing with family secrets is never easy. Yet, sometimes, omission is a form of protection, intending to safeguard some from the harsh truths. One day, I hope you understand the reasons behind my actions. Until then, Anna, please, bear with me.</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN2ZH/accent/5923897317977078708.wav" autoplay/>Your browser does not support the audio element.</audio><br>处理家庭秘密从来都不是一件容易的事。然而，有时候，隐瞒是一种保护形式，旨在保护一些人免受残酷的真相伤害。有一天，我希望你能理解我行为背后的原因。在那之前，安娜，请容忍我。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_40.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_41.wav" autoplay/>Your browser does not support the audio element.</audio><br>Dealing with family secrets is never easy. Yet, sometimes, omission is a form of protection, intending to safeguard some from the harsh truths. One day, I hope you understand the reasons behind my actions. Until then, Anna, please, bear with me.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_42.wav" autoplay/>Your browser does not support the audio element.</audio><br>处理家庭秘密从来都不是一件容易的事。然而，有时候，隐瞒是一种保护形式，旨在保护一些人免受残酷的真相伤害。有一天，我希望你能理解我行为背后的原因。在那之前，安娜，请容忍我。</td>
 					</tr>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN/prompt/-9102975986427238220.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN/generated/-5711578405326350279.wav" autoplay/>Your browser does not support the audio element.</audio><br>The combinations of different textures and flavors create a perfect harmony. The succulence of the steak, the tartness of the cranberries, the crunch of pine nuts, and creaminess of blue cheese make it a truly delectable delight. Enjoy your culinary adventure!</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/EN2ZH/accent/-2440558962308447419.wav" autoplay/>Your browser does not support the audio element.</audio><br>听着你的话，我心里五味杂陈。虽然我愿意一直在你身边，承担一切不幸，但我知道只有让你自己面对，才能真正让你变得更强大。所以，你要记得，无论面对何种困难，都请你坚强，我会在心里一直支持你的。</td>
-					</tr>
-
-					<tr>
-						<td style="vertical-align : middle;text-align:center;" rowspan="3">ZH</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH/prompt/2648200402409733590.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH/generated/-7282572289945892805.wav" autoplay/>Your browser does not support the audio element.</audio><br>突然，身边一阵笑声。我看着他们，意气风发地挺直了胸膛，甩了甩那稍显肉感的双臂，轻笑道："我身上的肉，是为了掩饰我爆棚的魅力，否则，岂不吓坏了你们呢？"</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH2EN/accent/5590663915455029645.wav" autoplay/>Your browser does not support the audio element.</audio><br>Suddenly, there was a burst of laughter beside me. I looked at them, stood up straight with high spirit, shook the slightly fleshy arms, and smiled lightly, saying, "The flesh on my body is to hide my bursting charm. Otherwise, wouldn't it scare you?"</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_20.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_21.wav" autoplay/>Your browser does not support the audio element.</audio><br>突然，身边一阵笑声。我看着他们，意气风发地挺直了胸膛，甩了甩那稍显肉感的双臂，轻笑道："我身上的肉，是为了掩饰我爆棚的魅力，否则，岂不吓坏了你们呢？"</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_22.wav" autoplay/>Your browser does not support the audio element.</audio><br>Suddenly, there was a burst of laughter beside me. I looked at them, stood up straight with high spirit, shook the slightly fleshy arms, and smiled lightly, saying, "The flesh on my body is to hide my bursting charm. Otherwise, wouldn't it scare you?"</td>
 					</tr>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH/prompt/8913957783621352198.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH/generated/33126387539052788.wav" autoplay/>Your browser does not support the audio element.</audio><br>他闭上眼睛，期望这一切都能过去。然而，当他再次睁开眼睛，眼前的景象让他不禁倒吸一口气。雾气中出现的禁闭岛，陌生又熟悉，充满未知的危险。他握紧拳头，心知他的生活即将发生翻天覆地的改变。</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH2EN/accent/4097919761234836261.wav" autoplay/>Your browser does not support the audio element.</audio><br>He closed his eyes, expecting that all of this could pass. However, when he opened his eyes again, the sight in front of him made him couldn't help but take a deep breath. The closed island that appeared in the fog, strange and familiar, was full of unknown dangers. He tightened his fist, knowing that his life was about to undergo earth-shaking changes. </td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_30.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_31.wav" autoplay/>Your browser does not support the audio element.</audio><br>他闭上眼睛，期望这一切都能过去。然而，当他再次睁开眼睛，眼前的景象让他不禁倒吸一口气。雾气中出现的禁闭岛，陌生又熟悉，充满未知的危险。他握紧拳头，心知他的生活即将发生翻天覆地的改变。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_32.wav" autoplay/>Your browser does not support the audio element.</audio><br>He closed his eyes, expecting that all of this could pass. However, when he opened his eyes again, the sight in front of him made him couldn't help but take a deep breath. The closed island that appeared in the fog, strange and familiar, was full of unknown dangers. He tightened his fist, knowing that his life was about to undergo earth-shaking changes. </td>
 					</tr>
 					<tr>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH/prompt/2631296891109983590.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH/generated/1784230488994154020.wav" autoplay/>Your browser does not support the audio element.</audio><br>顿时，气氛变得沉郁起来。乍看之下，一切的困扰仿佛都围绕在我身边。我皱着眉头，感受着那份压力，但我知道我不能放弃，不能认输。于是，我深吸一口气，心底的声音告诉我：“无论如何，都要冷静下来，重新开始。”</td>
-						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/ZeroShotICL_samples/ZH2EN/accent/6646045659975963496.wav" autoplay/>Your browser does not support the audio element.</audio><br>Suddenly, the atmosphere became gloomy. At first glance, all the troubles seemed to surround me. I frowned, feeling that pressure, but I know I can't give up, can't admit defeat. So, I took a deep breath, and the voice in my heart told me, "Anyway, must calm down and start again."</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_02.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_01.wav" autoplay/>Your browser does not support the audio element.</audio><br>Hallucination in large language models usually refers to the model generating unfaithful, fabricated, inconsistent, or nonsensical content. As a term, hallucination has been somewhat generalized to cases when the model makes mistakes. Here, I would like to narrow down the problem of hallucination to cases where the model output is fabricated and not grounded by either the provided context or world knowledge.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/icl_smaples/icl_00.wav" autoplay/>Your browser does not support the audio element.</audio><br>大型语言模型中的幻觉通常是指模型生成不真实、虚构、不一致或无意义的内容。幻觉这个术语在某种程度上已被泛化为模型出错的情况。在这里，我想将幻觉问题缩小到模型输出是虚构的、不以提供的上下文或世界知识为基础的情况。</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 </div>
 
-
 <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+	<h2 id="emotion-samples" style="text-align: center;">Emotion Samples</h2>
+	<p>MaskGCT can learn the prosody, style, and emotion of prompt speech.</p>
+		<div class="table-responsive pt-3">
+			<table class="table table-hover pt-2">
+				<thead>
+				<tr>
+				<th style="text-align: center">Emotion</th>
+				<th style="text-align: center">Text</th>
+				<th style="text-align: center">Generated</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="vertical-align : middle;text-align:center; "rowspan="2">Angry</td>
+						<td style="vertical-align : middle;text-align:center;">Gosh, was I fucking wrong! Let me just tell you after living in LA, I was not comfortable there. Well, you know what? I'll get into it in a minute. But, I think the reason why I said that was.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/angry_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;">你以为这只是小事一桩？你错了！每一次你的冷漠和无视，都像是在我心上划下一道道深深的伤口！</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/angry_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+
+					<tr>
+						<td style="vertical-align : middle;text-align:center; "rowspan="2">Disguested</td>
+						<td style="vertical-align : middle;text-align:center;">Later recounting that quote, it melted in my mouth like raw tuna in a sushi restaurant. I fucking hate this guy. Just so despicable, so, so disgusting.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/disguested_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/disguested_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+
+					<tr>
+						<td style="vertical-align : middle;text-align:center; "rowspan="2">Fearful</td>
+						<td style="vertical-align : middle;text-align:center;">But Astrid wouldn't abandon her quest. As they traversed the dense forest, Astrid could start to discern eerie whispers emanating from the shadows. She hastened her pace, her pulse racing with apprehension, she darted across the underbrush and stumbled over the roots.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/fear_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;">这种压力不仅仅来自外部，更深层次的是自我期望的压迫。我渴望在职业道路上不断前进，但每一步都显得如此艰难。内心的焦虑和不安，让我在夜深人静时难以入眠，脑海中不断回放着白天的种种挑战和失误。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/fear_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+
+					<tr>
+						<td style="vertical-align : middle;text-align:center; "rowspan="2">Happy</td>
+						<td style="vertical-align : middle;text-align:center;">Would you guys personally like to have a fake fireplace, an electric one, in your house? Or would you rather have a real fireplace? Let me know down below. Okay everybody, that's all for today's video and I hope you guys learned a bunch of furniture vocabulary!</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/happy_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/happy_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+
+					<tr>
+						<td style="vertical-align : middle;text-align:center; "rowspan="2">Sad</td>
+						<td style="vertical-align : middle;text-align:center;">I used to think that when you are sad, you will cry a lot. but it turns out that when you are really sad, you can't even shed a single tear. This world is so imperfect that if you want something, you have to give up something.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/sad_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;">这次考试真的太难了，我，我每一道题都不知道怎么写。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/sad_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+
+					<tr>
+						<td style="vertical-align : middle;text-align:center; "rowspan="2">Surprised</td>
+						<td style="vertical-align : middle;text-align:center;">Guess what I saw in the park next to school last night? A very long python! I kind of want to check it out again tonight.</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/surprised_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;">天呐，你看了昨晚的比赛吗，真的是太精彩太刺激了，我激动的一晚上没睡着。</td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/Emotion_samples/surprised_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p>MaskGCT enables emotion control for zero-shot in-context learning through post-training.</p>
+		<br>
+		<div class="table-responsive pt-3">
+			<table class="table table-hover pt-2">
+				<thead>
+				<tr>
+				<th style="text-align: center">Prompt</th>
+				<th style="text-align: center">neutral</th>
+				<th style="text-align: center">Angry</th>
+				<th style="text-align: center">Happy </th>
+				<th style="text-align: center">Sad</th>
+				<th style="text-align: center">Surprise</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<!-- <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
 	<h2 id="speaker-finetune-samples" style="text-align: center;">Speaker Fine-tune</h2>
 		<div class="table-responsive pt-3">
 			<table class="table table-hover pt-2">
@@ -210,13 +311,13 @@
 				</tbody>
 			</table>
 		</div>
-</div>
+</div> -->
 
 
 <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
 	<h2 id="speech-factorization-samples" style="text-align: center;">Speech Factorization</h2>
 	<br>
-	<h4 id="speaker-finetune-samples-female" style="text-align: center;">Zero-shot Voice Conversion</h4>
+	<h4 id="emotion-samples" style="text-align: center;">Zero-shot Voice Conversion</h4>
 	<br>
 		<div class="table-responsive pt-3">
 			<table class="table table-hover pt-2">
