@@ -37,7 +37,7 @@
         </p>
         <p><b>CUHK(SZ)</b></p> -->
 	</div>
-	<p><b>Abstract</b> The recent large-scale text-to-speech (TTS) systems are usually grouped as autoregressive and non-autoregressive systems. The autoregressive systems implicitly model duration but exhibit certain deficiencies in robustness and lack of duration controllability. Non-autoregressive systems require explicit alignment information between text and speech during training and predict durations for linguistic units (e.g. phone), which may compromise their naturalness. In this paper, we introduce <b>Mask</b>>ed <b>G</b>enerative <b>C</b>odec <b>T</b>ransformer (MaskGCT), <t>a fully non-autoregressive TTS model that eliminates the need for explicit alignment information between text and speech supervision, as well as phone-level duration prediction</t>. MaskGCT is a two-stage model: in the first stage, the model uses text to predict semantic tokens extracted from a speech self-supervised learning (SSL) model, and in the second stage, the model predicts acoustic tokens conditioned on these semantic tokens. MaskGCT follows the <t>mask-and-predict</t> learning paradigm. During training, MaskGCT learns to predict masked semantic or acoustic tokens based on given conditions and prompts. During inference, the model generates tokens of a specified length in a parallel manner. Experiments with 100K hours of in-the-wild speech demonstrate that MaskGCT outperforms the current state-of-the-art zero-shot TTS systems in terms of quality, similarity, and intelligibility. Audio samples are available at https://maskgct.github.io/.
+	<p><b>Abstract</b> The recent large-scale text-to-speech (TTS) systems are usually grouped as autoregressive and non-autoregressive systems. The autoregressive systems implicitly model duration but exhibit certain deficiencies in robustness and lack of duration controllability. Non-autoregressive systems require explicit alignment information between text and speech during training and predict durations for linguistic units (e.g. phone), which may compromise their naturalness. In this paper, we introduce <b>Mask</b>ed <b>G</b>enerative <b>C</b>odec <b>T</b>ransformer (MaskGCT), <i>a fully non-autoregressive TTS model that eliminates the need for explicit alignment information between text and speech supervision, as well as phone-level duration prediction</i>. MaskGCT is a two-stage model: in the first stage, the model uses text to predict semantic tokens extracted from a speech self-supervised learning (SSL) model, and in the second stage, the model predicts acoustic tokens conditioned on these semantic tokens. MaskGCT follows the <i>mask-and-predict</i> learning paradigm. During training, MaskGCT learns to predict masked semantic or acoustic tokens based on given conditions and prompts. During inference, the model generates tokens of a specified length in a parallel manner. Experiments with 100K hours of in-the-wild speech demonstrate that MaskGCT outperforms the current state-of-the-art zero-shot TTS systems in terms of quality, similarity, and intelligibility.
 	</p>
 
 	<p>
@@ -47,6 +47,7 @@
         <li><a href="#zero-shot-icl-samples">Zero-shot In-context Learning</a></li>
 		<li><a href="#celebrities-samples">Celebrities and Anime Characters</a></li>
         <li><a href="#emotion-samples">Emotion Samples</a></li>
+		<li><a href="#style-imitation-samples">Speech Style Imitation</a></li>
         <li><a href="#tempo-samples">Speech Tempo Controllability</a></li>
 		<li><a href="#robustness-samples">Robustness</a></li>
 		<li><a href="#editing-samples">Speech Editing</a></li>
@@ -326,7 +327,61 @@
 	</div>
 </div>
 
+<div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
+	<h2 id="emotion-samples" style="text-align: center;">Speech Style Imitation</h2>
+	<p>MaskGCT can learn <i>how to speak</i> including style such as emotion and accent, from prompt speech.</p>
+		<div class="table-responsive pt-3">
+			<table class="table table-hover pt-2">
+				<thead>
+				<tr>
+				<th style="text-align: center">Prompt</th>
+				<th style="text-align: center">Generated</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/ABA_a0055.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/ABA_a0055-ABA_a0547.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/ABA_a0055.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/ABA_a0055-ABA_a0547.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/ASI_a0219.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/ASI_a0219-ASI_b0458.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/BWC_a0152.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/BWC_a0152-BWC_a0439.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/HJK_a0249.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/HJK_a0249-HJK_b0029.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/NJS_a0186.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/NJS_a0186-NJS_a0250.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/0011_001655.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/0011_001655-0011_001708.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/0019_000890.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/0019_000890-0019_000993.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
+					<tr>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/prompt/0020_001305.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+						<td style="vertical-align : middle;text-align:center;"><audio controls="controls" style="width: 190px;"><source src="audios/style_samples/gen/0020_001305-0020_001308.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+					</tr>
 
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
 <div class="container pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
 	<h2 id="tempo-samples" style="text-align: center;">Speech Tempo Controllability</h2>
@@ -520,17 +575,7 @@
 		</div>
 </div>
 
-<!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">	
-	<h2 id=related-works style="text-align: center;">	
-		Other Related Works
-	</h2>
-	<p>
-		<a href="https://arxiv.org/abs/2407.05361v1">Emilia: An Extensive, Multilingual, and Diverse Speech Dataset for Large-Scale Speech Generation</a>
-	</p>
-	<p>
-		<a href="https://arxiv.org/abs/2312.09911">Amphion: An Open-Source Audio, Music and Speech Generation Toolkit</a>
-	</p>
-</div> -->
+
 
 </article>
 </main>
