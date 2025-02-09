@@ -32,12 +32,20 @@
         Jiachen Zheng<sup>1</sup>, Qiang Zhang<sup>2</sup>, Xueyao Zhang<sup>1</sup>, Shunsi Zhang<sup>2</sup>, Zhizheng Wu<sup>1</sup></p>
         <p><sup>1</sup>The Chinese University of Hong Kong, Shenzhen<br>
         <sup>2</sup>Guangzhou Quwan Network Technology</p>
-        <p>
-            <a href="https://arxiv.org/pdf/2409.00750">Arxiv</a> |
-            <a href="https://openreview.net/forum?id=ExuBFYtCQU">ICLR 2025</a> |
-            <a href="https://huggingface.co/amphion/MaskGCT">HuggingFace</a> |
-            <a href="https://github.com/open-mmlab/Amphion/blob/main/models/tts/maskgct">Code</a>
-        </p>
+	<p>
+	    <a href="https://arxiv.org/pdf/2409.00750">
+	        <img src="https://img.shields.io/badge/Arxiv-2409.00750-b31b1b?logo=arxiv&logoColor=white">
+	    </a>
+	    <a href="https://openreview.net/forum?id=ExuBFYtCQU">
+	        <img src="https://img.shields.io/badge/ICLR-2025-4b44ce?logo=openai&logoColor=white">
+	    </a>
+	    <a href="https://huggingface.co/amphion/MaskGCT">
+	        <img src="https://img.shields.io/badge/🤗_Hugging_Face-MaskGCT-ffae00?logo=huggingface&logoColor=white">
+	    </a>
+	    <a href="https://github.com/open-mmlab/Amphion/blob/main/models/tts/maskgct">
+	        <img src="https://img.shields.io/badge/Code-Amphion-2ea44f?logo=github&logoColor=white">
+	    </a>
+	</p>
 	</div>
 	<p><b>Abstract</b> The recent large-scale text-to-speech (TTS) systems are usually grouped as autoregressive and non-autoregressive systems. The autoregressive systems implicitly model duration but exhibit certain deficiencies in robustness and lack of duration controllability. Non-autoregressive systems require explicit alignment information between text and speech during training and predict durations for linguistic units (e.g. phone), which may compromise their naturalness. In this paper, we introduce <b>Mask</b>ed <b>G</b>enerative <b>C</b>odec <b>T</b>ransformer (MaskGCT), <i>a fully non-autoregressive TTS model that eliminates the need for explicit alignment information between text and speech supervision, as well as phone-level duration prediction</i>. MaskGCT is a two-stage model: in the first stage, the model uses text to predict semantic tokens extracted from a speech self-supervised learning (SSL) model, and in the second stage, the model predicts acoustic tokens conditioned on these semantic tokens. MaskGCT follows the <i>mask-and-predict</i> learning paradigm. During training, MaskGCT learns to predict masked semantic or acoustic tokens based on given conditions and prompts. During inference, the model generates tokens of a specified length in a parallel manner. Experiments with 100K hours of in-the-wild speech demonstrate that MaskGCT outperforms the current state-of-the-art zero-shot TTS systems in terms of quality, similarity, and intelligibility.
 	</p>
