@@ -28,14 +28,16 @@
 	<div class="text-center">
 	<h2>MaskGCT: </h2>
       <h3>Zero-Shot Text-to-Speech with Masked Generative Codec Transformer</h3>
-<!--       	[<a href="https://arxiv.org/abs/2409.00750">Paper</a>] -->
-
-        <!-- <p class="fst-italic mb-0">
-        	<br>
-			maskGCT Team
-      <p></p>
+        <p>Yuancheng Wang<sup>1</sup>, Haoyue Zhan<sup>2</sup>, Liwei Liu<sup>1</sup>, Ruihong Zeng<sup>2</sup>, Haotian Guo<sup>1</sup><br>
+        Jiachen Zheng<sup>1</sup>, Qiang Zhang<sup>2</sup>, Xueyao Zhang<sup>1</sup>, Shunsi Zhang<sup>2</sup>, Zhizheng Wu<sup>1</sup></p>
+        <p><sup>1</sup>The Chinese University of Hong Kong, Shenzhen<br>
+        <sup>2</sup>Guangzhou Quwan Network Technology</p>
+        <p>
+            <a href="https://arxiv.org/pdf/2409.00750">Arxiv</a> |
+            <a href="https://openreview.net/forum?id=ExuBFYtCQU">ICLR 2025</a> |
+            <a href="https://huggingface.co/amphion/MaskGCT">HuggingFace</a> |
+            <a href="https://github.com/open-mmlab/Amphion/blob/main/models/tts/maskgct">Code</a>
         </p>
-        <p><b>CUHK(SZ)</b></p> -->
 	</div>
 	<p><b>Abstract</b> The recent large-scale text-to-speech (TTS) systems are usually grouped as autoregressive and non-autoregressive systems. The autoregressive systems implicitly model duration but exhibit certain deficiencies in robustness and lack of duration controllability. Non-autoregressive systems require explicit alignment information between text and speech during training and predict durations for linguistic units (e.g. phone), which may compromise their naturalness. In this paper, we introduce <b>Mask</b>ed <b>G</b>enerative <b>C</b>odec <b>T</b>ransformer (MaskGCT), <i>a fully non-autoregressive TTS model that eliminates the need for explicit alignment information between text and speech supervision, as well as phone-level duration prediction</i>. MaskGCT is a two-stage model: in the first stage, the model uses text to predict semantic tokens extracted from a speech self-supervised learning (SSL) model, and in the second stage, the model predicts acoustic tokens conditioned on these semantic tokens. MaskGCT follows the <i>mask-and-predict</i> learning paradigm. During training, MaskGCT learns to predict masked semantic or acoustic tokens based on given conditions and prompts. During inference, the model generates tokens of a specified length in a parallel manner. Experiments with 100K hours of in-the-wild speech demonstrate that MaskGCT outperforms the current state-of-the-art zero-shot TTS systems in terms of quality, similarity, and intelligibility.
 	</p>
